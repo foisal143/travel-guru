@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import Header from '../sharedpage/Header/Header';
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaGoogle } from 'react-icons/fa';
+import { AtuhContext } from '../../../UserContext/UserContext';
 
 const Login = () => {
+  const { googleLogin, loginWithEmaiPass } = useContext(AtuhContext);
+  const [error, setError] = useState('');
+  const handlerGoogleLogin = () => {
+    googleLogin()
+      .then(result => {
+        const logedUser = result.user;
+        console.log(logedUser);
+      })
+      .catch(er => console.log(er.message));
+  };
+
+  const handlerFormSubmit = e => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    loginWithEmaiPass(email, password)
+      .then(res => console.log(res.user))
+      .catch(er => setError(er.message));
+  };
   return (
     <div>
       <Header></Header>
@@ -13,7 +34,7 @@ const Login = () => {
             <div className="text-left px-8 ">
               <h1 className="text-3xl font-semibold">Login </h1>
             </div>
-            <form className="card-body">
+            <form onSubmit={handlerFormSubmit} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -21,6 +42,7 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="email"
+                  name="email"
                   className="input input-bordered"
                   required
                 />
@@ -32,9 +54,11 @@ const Login = () => {
                 <input
                   type="password"
                   placeholder="password"
+                  name="password"
                   className="input input-bordered"
                   required
                 />
+                <small className="text-xs text-red-300 my-2">{error}</small>
                 <div className="flex justify-between mt-5 items-center">
                   <div>
                     <input type="checkbox" id="check" />
@@ -70,7 +94,10 @@ const Login = () => {
             <button className="btn btn-outline  btn-info">
               <FaFacebook></FaFacebook> Continue with facebook
             </button>
-            <button className="btn btn-outline  btn-success">
+            <button
+              onClick={handlerGoogleLogin}
+              className="btn btn-outline  btn-success"
+            >
               <FaGoogle /> Continue with Google
             </button>
           </div>

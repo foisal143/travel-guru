@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../../../../assets/Frame.svg';
 import darkLogo from '../../../../assets/logo.png';
 import { IoIosSearch } from 'react-icons/io';
 import { Link, useLocation } from 'react-router-dom';
+import { AtuhContext } from '../../../../UserContext/UserContext';
 
 const Header = () => {
   const location = useLocation();
   const path = location.pathname;
-
+  const { logout, user } = useContext(AtuhContext);
+  const handlerLogout = () => {
+    logout()
+      .then(() => {})
+      .catch(er => console.log(er.message));
+  };
   return (
     <nav className="absolute md:px-12 flex justify-between items-center px-5 py-5 top-0 w-full">
       <div className="">
@@ -42,11 +48,23 @@ const Header = () => {
         <Link>Blog</Link>
         <Link>Contact</Link>
       </div>
-      <Link to="/login">
-        <button className="px-8 py-2 bg-[#F9A51A] rounded-md font-bold">
-          Login
-        </button>
-      </Link>
+      <div>
+        <span className=" font-bold me-3">{user && user.displayName}</span>
+        {user ? (
+          <button
+            onClick={handlerLogout}
+            className="px-8 py-2 bg-[#F9A51A] rounded-md font-bold"
+          >
+            Logout
+          </button>
+        ) : (
+          <Link to="/login">
+            <button className="px-8 py-2 bg-[#F9A51A] rounded-md font-bold">
+              Login
+            </button>
+          </Link>
+        )}
+      </div>
     </nav>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { FaEye, FaFacebook, FaGoogle } from 'react-icons/fa';
+import { FaFacebook, FaGoogle, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Header from '../sharedpage/Header/Header';
 import { AtuhContext } from '../../../UserContext/UserContext';
@@ -8,6 +8,7 @@ const Register = () => {
   const { googleLogin, createUser } = useContext(AtuhContext);
   const [error, setError] = useState('');
   const [showpass, setShowPass] = useState(false);
+  const [showConPass, setShowConPass] = useState(false);
   // google login handler
   const handlerGoogleLogin = () => {
     setError('');
@@ -104,32 +105,49 @@ const Register = () => {
                   name="email"
                 />
               </div>
-              <div className="form-control">
+              <div className="form-control relative">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="password"
+                  type={showpass ? 'text' : 'password'}
                   placeholder="password"
                   name="password"
                   className="input input-bordered"
                   required
                 />
-                <span>
-                  <FaEye></FaEye>
+                <span
+                  onClick={() => setShowPass(!showpass)}
+                  className="absolute right-2 top-[52px] cursor-pointer"
+                >
+                  {showpass ? (
+                    <FaRegEye></FaRegEye>
+                  ) : (
+                    <FaRegEyeSlash></FaRegEyeSlash>
+                  )}
                 </span>
               </div>
-              <div className="form-control">
+              <div className="form-control relative">
                 <label className="label">
                   <span className="label-text">Confirm Password</span>
                 </label>
                 <input
-                  type="password"
+                  type={showConPass ? 'text' : 'password'}
                   placeholder="confirm password"
                   className="input input-bordered"
                   required
                   name="confirmPass"
                 />
+                <span
+                  onClick={() => setShowConPass(!showConPass)}
+                  className="absolute right-2 top-[52px] cursor-pointer"
+                >
+                  {showConPass ? (
+                    <FaRegEye></FaRegEye>
+                  ) : (
+                    <FaRegEyeSlash></FaRegEyeSlash>
+                  )}
+                </span>
                 <small className="text-red-300 text-xs mt-3 ms-1">
                   {error}
                 </small>

@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react';
 import Header from '../sharedpage/Header/Header';
 import { Link } from 'react-router-dom';
-import { FaFacebook, FaGoogle } from 'react-icons/fa';
+import { FaFacebook, FaGoogle, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { AtuhContext } from '../../../UserContext/UserContext';
 
 const Login = () => {
   const { googleLogin, loginWithEmaiPass } = useContext(AtuhContext);
   const [error, setError] = useState('');
+  const [showpass, setShowPass] = useState(false);
+
   const handlerGoogleLogin = () => {
     googleLogin()
       .then(result => {
@@ -47,17 +49,27 @@ const Login = () => {
                   required
                 />
               </div>
-              <div className="form-control">
+              <div className="form-control relative">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="password"
+                  type={showpass ? 'text' : 'password'}
                   placeholder="password"
                   name="password"
                   className="input input-bordered"
                   required
                 />
+                <span
+                  onClick={() => setShowPass(!showpass)}
+                  className="absolute right-2 top-[52px] cursor-pointer"
+                >
+                  {showpass ? (
+                    <FaRegEye></FaRegEye>
+                  ) : (
+                    <FaRegEyeSlash></FaRegEyeSlash>
+                  )}
+                </span>
                 <small className="text-xs text-red-300 my-2">{error}</small>
                 <div className="flex justify-between mt-5 items-center">
                   <div>

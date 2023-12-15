@@ -40,7 +40,7 @@ const Booking = () => {
                 type="date"
                 name="date"
                 id=""
-                className="border p-2 rounded-md bg-slate-100 border-slate-200"
+                className="border w-10/12 lg:w-full p-2 rounded-md bg-slate-100 border-slate-200"
               />
             </div>
             <div>
@@ -51,7 +51,7 @@ const Booking = () => {
                 type="date"
                 name="date"
                 id=""
-                className="border p-2 rounded-md bg-slate-100 border-slate-200"
+                className="border p-2 w-10/12 lg:w-full rounded-md bg-slate-100 border-slate-200"
               />
             </div>
           </div>

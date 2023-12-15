@@ -19,7 +19,7 @@ const Header = () => {
       .catch(er => console.log(er.message));
   };
   return (
-    <nav className="absolute z-10 md:px-12 flex justify-between items-center px-5 py-5 top-0 w-full">
+    <nav className="absolute z-10 md:px-12 flex justify-between items-center px-5 py-5 top-0 w-full gap-5 lg:gap-0">
       <div className="">
         <Link to="/">
           <img
@@ -43,7 +43,7 @@ const Header = () => {
         ''
       )}
       <div
-        className={`flex flex-col text-center lg:w-fit w-full absolute ${
+        className={`flex flex-col text-center  lg:w-fit w-full absolute ${
           isOpen ? 'top-20 p-5  ' : '-top-96'
         } lg:static right-0 duration-500  bg-white  lg:bg-transparent  lg:flex-row gap-3 lg:gap-10 ${
           path === '/' || path === '/booking'

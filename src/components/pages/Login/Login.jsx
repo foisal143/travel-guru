@@ -1,10 +1,13 @@
 import React, { useContext, useState } from 'react';
 import Header from '../sharedpage/Header/Header';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaFacebook, FaGoogle, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { AtuhContext } from '../../../UserContext/UserContext';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.pathname;
   const { googleLogin, loginWithEmaiPass } = useContext(AtuhContext);
   const [error, setError] = useState('');
   const [showpass, setShowPass] = useState(false);
@@ -14,6 +17,7 @@ const Login = () => {
       .then(result => {
         const logedUser = result.user;
         console.log(logedUser);
+        navigate(from, { replace: true });
       })
       .catch(er => console.log(er.message));
   };
@@ -24,7 +28,10 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     loginWithEmaiPass(email, password)
-      .then(res => console.log(res.user))
+      .then(res => {
+        navigate(from, { replace: true });
+        console.log(res.user);
+      })
       .catch(er => setError(er.message));
   };
   return (

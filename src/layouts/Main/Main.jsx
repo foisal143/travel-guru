@@ -30,7 +30,7 @@ const Main = () => {
           )}
         </div>
 
-        <div className=" lg:w-[60%] ">
+        <div className=" lg:w-[60%] mt-20 lg:mt-0">
           <Outlet></Outlet>
         </div>
       </div>

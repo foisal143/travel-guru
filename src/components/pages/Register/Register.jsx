@@ -5,17 +5,20 @@ import Header from '../sharedpage/Header/Header';
 import { AtuhContext } from '../../../UserContext/UserContext';
 
 const Register = () => {
-  const { googleLogin, createUser } = useContext(AtuhContext);
+  const { googleLogin, createUser, updateUser } = useContext(AtuhContext);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [showpass, setShowPass] = useState(false);
   const [showConPass, setShowConPass] = useState(false);
   // google login handler
   const handlerGoogleLogin = () => {
     setError('');
+    setSuccess('');
     googleLogin()
       .then(result => {
         const logedUser = result.user;
         console.log(logedUser);
+        setSuccess('Registaton success');
       })
       .catch(er => setError(er.message));
   };
@@ -27,6 +30,7 @@ const Register = () => {
     const form = e.target;
     const firstName = form.firstName.value;
     const lastName = form.lastName.value;
+    const name = firstName + ' ' + lastName;
     const email = form.email.value;
     const password = form.password.value;
     const confirmPassword = form.confirmPass.value;
@@ -54,7 +58,8 @@ const Register = () => {
     createUser(email, password)
       .then(result => {
         const createdUser = result.user;
-        console.log(createdUser);
+        updateUser(createdUser, name);
+        setSuccess('Registerd success');
       })
       .catch(er => setError(er.message));
   };
@@ -150,6 +155,9 @@ const Register = () => {
                 </span>
                 <small className="text-red-300 text-xs mt-3 ms-1">
                   {error}
+                </small>
+                <small className="text-green-300 text-xs mt-3 ms-1">
+                  {success}
                 </small>
               </div>
               <div className="form-control mt-2">

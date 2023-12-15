@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 import app from '../firebase/firebase.config';
 export const AtuhContext = createContext(null);
@@ -39,6 +40,12 @@ const UserContext = ({ children }) => {
     return signOut(auth);
   };
 
+  // updata profile
+  const updateUser = (createdUser, name) => {
+    updateProfile(createdUser, {
+      displayName: name,
+    });
+  };
   // observer
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, loggedUser => {
@@ -55,6 +62,7 @@ const UserContext = ({ children }) => {
     createUser,
     loader,
     loginWithEmaiPass,
+    updateUser,
   };
   return (
     <AtuhContext.Provider value={authInfo}>{children}</AtuhContext.Provider>

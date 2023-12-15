@@ -3,7 +3,7 @@ export const PlacesContext = createContext(null);
 const PlaceContext = ({ children }) => {
   const [places, setPlaces] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:5000/places')
+    fetch('https://travel-bd-server-pi.vercel.app/places')
       .then(res => res.json())
       .then(data => setPlaces(data.destinations))
       .catch();

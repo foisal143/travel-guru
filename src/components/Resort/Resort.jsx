@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaStar } from 'react-icons/fa';
+import { PlacesContext } from '../../PlaceContext/PlaceContext';
 
 const Resort = ({ resort }) => {
   const { name, price, rating, cancellation_policy, image } = resort;
-  console.log(resort);
+
   return (
     <div className="flex my-5 gap-3">
       <img className="w-32 h-32" src={image} alt="" />

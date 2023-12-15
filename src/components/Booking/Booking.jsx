@@ -6,7 +6,7 @@ const Booking = () => {
   const { place } = useContext(PlacesContext);
 
   return (
-    <div className="hero-content flex-col w-2/3 mx-auto">
+    <div className="hero-content flex-col lg:w-2/3 mx-auto">
       <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
         <form className="card-body">
           <div className="form-control">
